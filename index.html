@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <title>Game War Galactic</title>
+  <link rel="stylesheet" href="css/style.css">
+  <script src="js/animacao.js" async></script>
+  <script src="js/back.js" async></script>
+</head>
+
+<body>
+
+    <canvas id="myCanvas" width="1440" height="900"></canvas>
+
+
+
+
+  <script>
+    //Carregando as imagens
+    var imgSpace = new Image();
+    imgSpace.src = 'img/sky.png';
+
+    var imgStars = new Image();
+    imgStars.src = 'img/stars.png';
+
+    var imgClouds = new Image();
+    imgClouds.src = 'img/clouds.png';
+
+    //Contador das imagens carregadas
+    var carregadas = 0;
+    var total = 3;
+
+    //método onload para carregar as imagens
+    imgSpace.onload = carregando;
+    imgStars.onload = carregando;
+    imgClouds.onload = carregando;
+
+    //função usada no método onload **carregando
+    function carregando() {
+      carregadas++;
+      if (carregadas == total) {
+        iniciar();
+      }
+    }
+
+    //função iniciar chamada na função carregando
+    function iniciar() {
+      var canvas = document.getElementById('myCanvas');
+      var context = canvas.getContext('2d');
+
+      //Passo o context e a imagem para os objetos do fundo
+      var backStars = new Back(context, imgStars);
+      var backClouds = new Back(context, imgClouds);
+      var backSpace = new Back(context, imgSpace);
+
+      //Inserindo as velocidades nos backgrounds
+      backStars.velocidade = 2;
+      backClouds.velocidade = 4;
+      backSpace.velocidade = 1;
+
+      //iniciando a classe animação
+      var animacao = new Animacao(context);
+      animacao.novoSprite(backSpace);
+      animacao.novoSprite(backClouds);
+      animacao.novoSprite(backStars);
+      animacao.ligar();
+
+    }
+  </script>
+</body>
+
+</html>
