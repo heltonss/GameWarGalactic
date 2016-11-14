@@ -5,21 +5,22 @@
   <meta charset="utf-8">
   <title>Game War Galactic</title>
   <link rel="stylesheet" href="css/style.css">
-  <script src="js/animacao.js"></script>
-  <script src="js/back.js"></script>
-  <script src="js/teclado.js"></script>
-  <script src="js/nave.js"></script>
-  <script src="js/tiro.js"></script>
+  <script src="js/animacao.js" ></script>
+  <script src="js/back.js" ></script>
+  <script src="js/teclado.js" ></script>
+  <script src="js/nave.js" ></script>
+  <script src="js/tiro.js" ></script>
 </head>
 
 <body>
 
-  <canvas id="myCanvas" width="1440" height="900"></canvas>
+    <canvas id="myCanvas" width="1440" height="900"></canvas>
 
 
 
 
   <script>
+  
     //Carregando as imagens
     var imgSpace = new Image();
     imgSpace.src = 'img/sky.png';
@@ -30,9 +31,6 @@
     var imgClouds = new Image();
     imgClouds.src = 'img/clouds.png';
 
-    var imgNave = new Image();
-    imgNave.src = 'img/nave_.png';
-
     //Contador das imagens carregadas
     var carregadas = 0;
     var total = 3;
@@ -42,11 +40,6 @@
     imgStars.onload = carregando;
     imgClouds.onload = carregando;
 
-
-    // Teclado e animação (game engine)
-    var teclado = new Teclado(document);
-    //var animacao = new Animacao(context);
-
     //função usada no método onload **carregando
     function carregando() {
       carregadas++;
@@ -54,15 +47,6 @@
         iniciar();
       }
     }
-
-    // Quando carregar a imagem, iniciar a animação
-    // imgNave.onload = function() {
-    //   // Centralizada na horizontal, alinhada embaixo na vertical
-    //   nave.x = canvas.width / 2 - imgNave.width / 2;
-    //   nave.y = canvas.height - imgNave.height;
-    //   nave.velocidade = 5;
-    //   animacao.ligar();
-    // }
 
     //função iniciar chamada na função carregando
     function iniciar() {
@@ -73,31 +57,19 @@
       var backStars = new Back(context, imgStars);
       var backClouds = new Back(context, imgClouds);
       var backSpace = new Back(context, imgSpace);
-      var nave = new Nave(context, teclado, imgNave);
 
       //Inserindo as velocidades nos backgrounds
       backStars.velocidade = 2;
       backClouds.velocidade = 4;
       backSpace.velocidade = 1;
 
-      //setup da nave
-      nave.x = canvas.width / 2 - imgNave.width / 2;
-      nave.y = canvas.height - imgNave.height;
-      nave.velocidade = 10;
-
       //iniciando a classe animação
       var animacao = new Animacao(context);
       animacao.novoSprite(backSpace);
       animacao.novoSprite(backClouds);
       animacao.novoSprite(backStars);
-      animacao.novoSprite(nave);
       animacao.ligar();
-
-
-      // iniciar disparo
-      teclado.disparou(ESPACO, function() {
-        nave.atirar();
-      })
+     
 
     }
   </script>

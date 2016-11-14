@@ -6,18 +6,19 @@ function Animacao(context) {
 }
 //criando os métodos da nossa animação
 Animacao.prototype = {
-  novoSprite: function(sprite) {
+  novoSprite: function (sprite) {
     this.sprites.push(sprite);
+    sprite.animacao = this;
   },
-  ligar: function() {
+  ligar: function () {
     this.ligado = true;
     this.proximoFrame(); //cuida da animação
   },
-  desligar: function() {
+  desligar: function () {
     this.ligado = false;
   },
   //funcao resposável pela animação
-  proximoFrame: function() {
+  proximoFrame: function () {
     if (!this.ligado) {
       return;
     }
@@ -36,11 +37,11 @@ Animacao.prototype = {
 
     //Chamamos o próximo
     var animacao = this;
-    requestAnimationFrame(function() {
+    requestAnimationFrame(function () {
       animacao.proximoFrame();
     });
   },
-  limparTela: function() {
+  limparTela: function () {
     var ctx = this.context;
     ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
 
