@@ -1,1 +1,1 @@
-Jogo no estilo asteroid desenvolvido com HTML5, JavaScript, Photoshop - em desenvolvimento.
+Jogo no estilo asteroid em desenvolvimento com HTML5, JavaScript, Photoshop - em desenvolvimento.
