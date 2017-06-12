@@ -10,6 +10,7 @@
   <script src="js/teclado.js"></script>
   <script src="js/nave.js"></script>
   <script src="js/tiro.js"></script>
+  <script src="js/meteor.js"></script>
 </head>
 
 <body>
@@ -33,6 +34,9 @@
     var imgNave = new Image();
     imgNave.src = 'img/nave_.png';
 
+    var imgMeteor = new Image();
+    imgMeteor.src = 'img/meteor.png'
+
     //Contador das imagens carregadas
     var carregadas = 0;
     var total = 3;
@@ -41,6 +45,7 @@
     imgSpace.onload = carregando;
     imgStars.onload = carregando;
     imgClouds.onload = carregando;
+    imgMeteor.onload = carregando;
 
 
     // Teclado e animação (game engine)
@@ -95,10 +100,24 @@
 
 
       // iniciar disparo
-      teclado.disparou(ESPACO, function() {
+      teclado.disparou(ESPACO, function () {
         nave.atirar();
       })
 
+      function novoMeteor() {
+        var meteor = new Meteor(context, imgMeteor);
+
+        meteor.velocidade = Math.floor(Math.random() * (20 - 5 + 1));
+
+        //largura do canvas comparado a largura do ovni
+        meteor.x = Math.floor(Math.random() * (canvas.width - imgMeteor.width + 1))
+
+        //descontar a altura
+        meteor.y = -1200;
+
+        animacao.novoSprite(meteor);
+      }
+      setInterval(novoMeteor, 1000);
     }
   </script>
 </body>
