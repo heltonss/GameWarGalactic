@@ -11,6 +11,7 @@
   <script src="js/nave.js"></script>
   <script src="js/tiro.js"></script>
   <script src="js/meteor.js"></script>
+  <script src="js/colisor.js"></script>
 </head>
 
 <body>
@@ -35,7 +36,7 @@
     imgNave.src = 'img/nave_.png';
 
     var imgMeteor = new Image();
-    imgMeteor.src = 'img/meteor.png'
+    imgMeteor.src = 'img/meteor.png';
 
     //Contador das imagens carregadas
     var carregadas = 0;
@@ -79,6 +80,8 @@
       var backClouds = new Back(context, imgClouds);
       var backSpace = new Back(context, imgSpace);
       var nave = new Nave(context, teclado, imgNave);
+      var colisor = new Colisor();
+
 
       //Inserindo as velocidades nos backgrounds
       backStars.velocidade = 2;
@@ -98,6 +101,8 @@
       animacao.novoSprite(nave);
       animacao.ligar();
 
+      colisor.novoSprite(nave);
+      animacao.novoProcessamento(colisor);
 
       // iniciar disparo
       teclado.disparou(ESPACO, function () {
@@ -106,15 +111,11 @@
 
       function novoMeteor() {
         var meteor = new Meteor(context, imgMeteor);
-
         meteor.velocidade = Math.floor(Math.random() * (20 - 5 + 1));
-
         //largura do canvas comparado a largura do ovni
         meteor.x = Math.floor(Math.random() * (canvas.width - imgMeteor.width + 1))
-
         //descontar a altura
         meteor.y = -1200;
-
         animacao.novoSprite(meteor);
       }
       setInterval(novoMeteor, 1000);

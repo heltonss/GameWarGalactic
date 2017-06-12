@@ -11,24 +11,29 @@ function Tiro(context, nave) {
 
 }
 Tiro.prototype = {
-    atualizar: function() {
+    atualizar: function () {
         this.y -= this.velocidade;
+
+        // Excluir o tiro quando sumir da tela
+        if (this.y < -this.altura) {
+            this.animacao.excluirSprite(this);
+            this.colisor.excluirSprite(this);
+        }
     },
-    desenhar: function() {
+    desenhar: function () {
         var imgTiro = new Image();
         imgTiro.src = 'img/tiro.png';
 
         var ctx = this.context;
         ctx.save();
-        ctx.drawImage(imgTiro,this.x, this.y);
+        ctx.drawImage(imgTiro, this.x, this.y);
         ctx.restore();
-
-
-        // var ctx = this.context;
-        // ctx.save();
-        // ctx.fillStyle = 'green';
-        // ctx.fillRect(this.x, this.y, this.largura, this.altura);
-        // ctx.restore();
-
-    }
+    },
+    retangulosColisao: function () {
+        return [{
+            x: this.x, y: this.y, largura: this.largura,
+            altura: this.altura
+        }];
+    },
+    colidiuCom: function (outro) { }
 }
